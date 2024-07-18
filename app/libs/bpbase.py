@@ -6,7 +6,7 @@ from flask.ext.httpauth import HTTPBasicAuth
 
 auth = HTTPBasicAuth()
 
-
+# HTTPBasicAuth？
 class ApiBlueprint(object):
     def __init__(self, name):
         self.name = name
