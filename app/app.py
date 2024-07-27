@@ -12,7 +12,7 @@ class JSONEncoder(_JSONEncoder):
             return o.strftime('%Y-%m-%dT%H:%M:%SZ')
         if isinstance(o, date):
             return o.strftime('%Y-%m-%d')
-        return JSONEncoder.default(self, o)
+        return super().default(o)
 
 
 class Flask(_Flask):

@@ -1,7 +1,7 @@
 from flask import render_template, redirect, current_app, g
 from flask import request, flash, url_for
 from flask_login import login_user, login_required, logout_user, current_user
-from flask_sqlalchemy import get_debug_queries
+# from flask_sqlalchemy import get_debug_queries
 
 from . import web
 from app.forms.auth import RegisterForm, LoginForm, ResetPasswordForm, EmailForm, \

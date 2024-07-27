@@ -1,19 +1,21 @@
-'''
+"""
     创建应用程序，并注册相关蓝图
-'''
+"""
 from flask import Flask
 # from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
+from flask_caching import Cache
 from app.models.base import db
 from app.libs.email import mail
-from flask_cache import Cache
+# from flask_cache import Cache
+from flask_caching import Cache
 from app.libs.limiter import Limiter
 
 __author__ = 'JOJO'
 
 login_manager = LoginManager()
 cache = Cache(config={'CACHE_TYPE': 'simple'})
-limiter = Limiter()
+limiter = Limiter(cache=cache)
 
 
 def register_web_blueprint(app):
