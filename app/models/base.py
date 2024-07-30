@@ -2,7 +2,7 @@ from datetime import datetime
 from contextlib import contextmanager
 from sqlalchemy import Column, Integer, SmallInteger
 from flask import current_app
-from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy, BaseQuery
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy,BaseQuery
 
 __all__ = ['db', 'Base']
 
@@ -24,15 +24,10 @@ class Query(BaseQuery):
     def filter_by(self, **kwargs):
         if 'status' not in kwargs.keys():
             kwargs['status'] = 1
-        return super(Query, self).filter_by(**kwargs)
+        return super().filter_by(**kwargs)
 
 
 db = SQLAlchemy(query_class=Query)
-
-
-# class BaseMixin(object):
-#     def __getitem__(self, key):
-#         return getattr(self, key)
 
 
 class Base(db.Model):
