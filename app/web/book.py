@@ -64,3 +64,5 @@ def book_detail(isbn):
                            has_in_wishes=has_in_wishes,
                            wishes=trade_wishes_model,
                            gifts=trade_gifts_model)
+
+
