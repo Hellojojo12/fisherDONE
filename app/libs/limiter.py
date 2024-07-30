@@ -1,12 +1,13 @@
 """
-Created by on 2024/7/23.
+
 """
-from flask_caching import Cache
+# from flask_caching import Cache
 import functools
 
 # from flask import current_app
 
 __author__ = 'JOJO'
+
 
 class Limiter:
     def __init__(self, cache):
@@ -29,11 +30,10 @@ class Limiter:
                     return f(*args, **kwargs)
                 else:
                     return self.limited_callback()
+
             return wrapper
+
         return decorator
-
-
-
 
 # """
 #  Created by 七月 on 2018/1/9.

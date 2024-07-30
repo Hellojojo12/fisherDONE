@@ -8,7 +8,10 @@ from urllib.parse import quote
 from http.client import HTTPSConnection
 from flask import json, current_app
 import requests
-from app.libs.proxy_ip import get_ip_list, get_random_ip
+
+
+# from app.libs.proxy_ip import get_ip_list, get_random_ip
+
 
 class HTTP:
     # 经典类和新式类
@@ -20,6 +23,7 @@ class HTTP:
         if r.status_code != 200:
             return {} if return_json else ''
         return r.json() if return_json else r.text
+
 
 class Http(object):
     def __init__(self, url):

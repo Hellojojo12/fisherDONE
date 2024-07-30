@@ -2,12 +2,9 @@
     创建应用程序，并注册相关蓝图
 """
 from flask import Flask
-# from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
-from flask_caching import Cache
 from app.models.base import db
 from app.libs.email import mail
-# from flask_cache import Cache
 from flask_caching import Cache
 from app.libs.limiter import Limiter
 
@@ -23,15 +20,10 @@ def register_web_blueprint(app):
     app.register_blueprint(web)
 
 
-# def register_api_blueprint(app):
-#     from app.api import account
-#     app.register_blueprint(account.app,url_prefix='/api')
-
-
 def create_app(config=None):
     app = Flask(__name__)
 
-    #: load default configuration
+    #: 加载配置文件
     app.config.from_object('app.settings')
     app.config.from_object('app.secure')
 
@@ -48,15 +40,10 @@ def create_app(config=None):
 
     # 注册flask-cache模块
     cache.init_app(app)
-
-    # 注册CSRF保护
-    # csrf = CsrfProtect()
-    # csrf.init_app(app)
-
-    # register_api_blueprint(app)
+    # 注册蓝图
     register_web_blueprint(app)
 
-    if config is not None:
+    if config:
         if isinstance(config, dict):
             app.config.update(config)
         elif config.endswith('.py'):

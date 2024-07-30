@@ -4,14 +4,10 @@ from app import cache
 
 
 class YuShuBook:
-    """
-        鱼书API提供数据
-    """
+
     per_page = 15
-    # douban_isbn_url = 'https://api.douban.com/v2/book/isbn/{}'
-    # douban_keyword_url = 'https://api.douban.com/v2/book/search?q={}&count={}&start={}'
     isbn_url = 'http://data.isbn.work/openApi/getlnfoBylsbn?isbn={isbn}&appKey={appkey)'
-    # app_key = 'ae1718d4587744b0b79f940fbef69e77'
+    app_key = 'ae1718d4587744b0b79f940fbef69e77'
     # isbn_url = 'http://t.yushu.im/v2/book/isbn/{}'
     keyword_url = 'http://t.yushu.im/v2/book/search?q={}&count={}&start={}'
 

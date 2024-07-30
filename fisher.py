@@ -7,10 +7,6 @@ __author__ = "七月"
 
 app = create_app()
 
-# with app.app_context():
-#     db.drop_all()
-
-# if app.config['CHECK_DB']:
 with app.app_context():
     db.create_all()
 
