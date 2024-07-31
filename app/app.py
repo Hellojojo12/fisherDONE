@@ -1,8 +1,13 @@
-from datetime import datetime,date
+from datetime import datetime, date
+# from flask.json import JSONEncoder as _JSONEncoder
+# flask2.3之后的版本舍弃了JSONEncoder
+from flask.json.provider import JSONProvider as _JSONEncoder
 from flask import Flask as _Flask
-from flask.json import JSONEncoder as _JSONEncoder
 
 
+# hasattr(object, name)
+# object: 要检查属性的对象。
+# name: 一个字符串，表示你想检查的属性名称。
 class JSONEncoder(_JSONEncoder):
     def default(self, o):
         if hasattr(o, 'keys') and hasattr(o, '__getitem__'):
@@ -16,19 +21,7 @@ class JSONEncoder(_JSONEncoder):
 
 
 class Flask(_Flask):
-    json_encoder = JSONEncoder
+    # json_encoder = JSONEncoder
+    json_provider_class = JSONEncoder
 
 
-# def create_app(config=None):
-#     app = Flask(__name__)
-#
-#     #: load default configuration
-#     app.config.from_object('app.settings')
-#     app.config.from_object('app.secure')
-#
-#     if config is not None:
-#         if isinstance(config, dict):
-#             app.config.update(config)
-#         elif config.endswith('.py'):
-#             app.config.from_pyfile(config)
-#     return app

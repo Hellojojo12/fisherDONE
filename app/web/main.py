@@ -9,9 +9,6 @@ from app.models.gift import Gift
 __author__ = 'JOJO'
 
 
-# def __current_user_status_change():
-#     r = request
-
 
 @web.route('/')
 # @cache.cached(timeout=100, unless=__current_user_status_change)

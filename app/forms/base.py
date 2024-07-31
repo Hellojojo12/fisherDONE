@@ -19,6 +19,7 @@ class DataRequired(WTFDataRrequired):
             self.message = field_text + '不能为空，请填写' + field_text
         super(DataRequired, self).__call__(form, field)
 
+
 class BaseForm(Form):
     def __init__(self):
         body_data = request.form.to_dict()
