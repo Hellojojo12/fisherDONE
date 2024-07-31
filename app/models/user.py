@@ -3,9 +3,6 @@ from app.models.drift import Drift
 from app.models.gift import Gift
 from app.models.wish import Wish
 from app.libs.helper import is_isbn_or_key
-
-__author__ = 'bliss'
-
 from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -20,8 +17,6 @@ from app import login_manager
 
 class User(UserMixin, Base):
     __tablename__ = 'user'
-    # __bind_key__ = 'fisher'
-
     id = Column(Integer, primary_key=True)
     nickname = Column(String(24), nullable=False)
     phone_number = Column(String(18), unique=True)
@@ -87,10 +82,13 @@ class User(UserMixin, Base):
         db.session.add(self)
         return True
 
+    # 用用户的id生成一个令牌
     def generate_token(self, expiration=600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'id': self.id}).decode('utf-8')
 
+    # 用户使用邮箱的链接进行密码的重置，链接中带的token，需要验证，通过后才
+    # 能变更密码
     @staticmethod
     def reset_password(token, new_password):
         s = Serializer(current_app.config['SECRET_KEY'])
@@ -105,6 +103,7 @@ class User(UserMixin, Base):
         db.session.commit()
         return True
 
+    # 一个用户简介
     @property
     def summary(self):
         return dict(

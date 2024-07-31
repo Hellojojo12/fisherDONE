@@ -22,3 +22,16 @@
 -def index():
     return "Hello, world!"
 
+**WSGI** 
+-是一种标准化的接口，定义了 Python Web 服务器和应用之间的通信方式。
+
+**token**
+-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+-通过序列化的方式进行加密和解密
+-要在系统中配置key
+
+**数据库查询方式**
+`-gift = Gift.query.get(current_gift_id)
+-Drift.query.filter(Drift.pending == PendingStatus.success, Gift.uid == self.id).count()`
+-其实就是两种 get()和filter()
+
