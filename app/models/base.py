@@ -2,7 +2,9 @@ from datetime import datetime
 from contextlib import contextmanager
 from sqlalchemy import Column, Integer, SmallInteger
 from flask import current_app
-from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy,BaseQuery
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
+from flask_sqlalchemy.query import Query as BaseQuery
+# 新版本的BaseQuery没在flask_sqlalchemy里了
 
 __all__ = ['db', 'Base']
 
