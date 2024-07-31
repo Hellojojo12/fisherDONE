@@ -48,6 +48,9 @@ class Base(db.Model):
     def delete(self):
         self.status = 0
 
+    # DONE
+    #  hasattr（）、setattr（）都是内置方法、.items（）是用来让字典可以遍历的
+    # 遍历key, value，对象必须不能有key，因为要保证不增加新的值得，只做值的修改
     def set_attrs(self, attrs):
         for key, value in attrs.items():
             if hasattr(self, key) and key != 'id':

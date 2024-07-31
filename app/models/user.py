@@ -31,15 +31,7 @@ class User(UserMixin, Base):
     send_counter = Column(Integer, default=0)
     receive_counter = Column(Integer, default=0)
     gifts = relationship('Gift')
-
     _password = Column('password', String(100))
-
-    # def __init__(self, nickname, email, password, phone_number=None):
-    #     self.nickname = nickname
-    #     self._password = generate_password_hash(password)
-    #     self.email = email
-    #     self.phone_number = phone_number
-    #     super(User, self).__init__()
 
     @property
     def password(self):

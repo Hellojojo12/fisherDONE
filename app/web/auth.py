@@ -1,8 +1,6 @@
 from flask import render_template, redirect, current_app, g
 from flask import request, flash, url_for
 from flask_login import login_user, login_required, logout_user, current_user
-# from flask_sqlalchemy import get_debug_queries
-
 from . import web
 from app.forms.auth import RegisterForm, LoginForm, ResetPasswordForm, EmailForm, \
     ChangePasswordForm
@@ -13,6 +11,7 @@ from app.libs.email import send_email
 __author__ = 'JOJO'
 
 
+# DONE
 @web.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
@@ -21,24 +20,22 @@ def register():
         user.set_attrs(form.data)
         db.session.add(user)
         db.session.commit()
-        # token = user.generate_confirmation_token()
-        # send_email(user.email, 'Confirm Your Account',
-        #            'email/confirm', user=user, token=token)
         login_user(user, False)
-        # flash('一封激活邮件已发送至您的邮箱，请快完成验证', 'confirm')
-        # 由于发送的是ajax请求，所以redirect是无效的
-        # return render_template('index.html')
         return redirect(url_for('web.index'))
     return render_template('auth/register.html', form=form)
 
 
+# DONE
+# 登录
 @web.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
+            #  用login_user登录，并记住用户
             login_user(user, remember=True)
+            #  获取用户登陆之前访问的地址，这个访问信息在next中
             next = request.args.get('next')
             if not next or not next.startswith('/'):
                 next = url_for('web.index')
@@ -48,6 +45,8 @@ def login():
     return render_template('auth/login.html', form=form)
 
 
+# DONE
+# 发送邮箱，重置密码
 @web.route('/reset/password', methods=['GET', 'POST'])
 def forget_password_request():
     if request.method == 'POST':
@@ -63,6 +62,7 @@ def forget_password_request():
     return render_template('auth/forget_password_request.html')
 
 
+# 收到邮件，用邮件中的token重置密码
 @web.route('/reset/password/<token>', methods=['GET', 'POST'])
 def forget_password(token):
     if not current_user.is_anonymous:
@@ -97,19 +97,6 @@ def logout():
     return redirect(url_for('web.index'))
 
 
-@web.route('/register/confirm/<token>')
-def confirm(token):
-    pass
-    # if current_user.confirmed:
-    #     return redirect(url_for('main.index'))
-    # if current_user.confirm(token):
-    #     db.session.commit()
-    #     flash('You have confirmed your account. Thanks!')
-    # else:
-    #     flash('The confirmation link is invalid or has expired.')
-    # return redirect(url_for('main.index'))
-
-
 @web.route('/register/ajax', methods=['GET', 'POST'])
 def register_ajax():
     if request.method == 'GET':
@@ -121,13 +108,8 @@ def register_ajax():
                     form.email.data, form.password.data)
         db.session.add(user)
         db.session.commit()
-        # token = user.generate_confirmation_token()
-        # send_email(user.email, 'Confirm Your Account',
-        #            'email/confirm', user=user, token=token)
         login_user(user, False)
         g.status = True
         flash('一封激活邮件已发送至您的邮箱，请快完成验证', 'confirm')
         # 由于发送的是ajax请求，所以redirect是无效的
         return 'go to index'
-
-
