@@ -7,12 +7,13 @@ from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from sqlalchemy import Column, ForeignKey, func
-from sqlalchemy import String, Unicode, DateTime, Boolean
-from sqlalchemy import SmallInteger, Integer, Float
+from sqlalchemy import Column
+from sqlalchemy import String, Boolean
+from sqlalchemy import Integer, Float
 from sqlalchemy.orm import relationship
 from app.models.base import db, Base
 from app import login_manager
+from app.spider.yushu_book import YuShuBook
 
 
 class User(UserMixin, Base):
@@ -57,7 +58,7 @@ class User(UserMixin, Base):
     def can_save_to_list(self, isbn):
         if is_isbn_or_key(isbn) != 'isbn':
             return False
-        yushu_book = YushuBook()
+        yushu_book = YuShuBook()
         yushu_book.search_by_isbn(isbn)
         if not yushu_book.first:
             return False
