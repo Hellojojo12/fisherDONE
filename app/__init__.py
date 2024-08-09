@@ -6,13 +6,13 @@ from flask_login import LoginManager
 from app.models.base import db
 from app.libs.email import mail
 from flask_caching import Cache
-from app.libs.limiter import Limiter
+# from app.libs.limiter import Limiter
 
 __author__ = 'JOJO'
 
 login_manager = LoginManager()
 cache = Cache(config={'CACHE_TYPE': 'simple'})
-limiter = Limiter(cache=cache)
+# limiter = Limiter(cache=cache)
 
 
 def register_web_blueprint(app):
