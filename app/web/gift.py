@@ -31,10 +31,6 @@ def my_gifts():
 def save_to_gifts(isbn):
     yushu_book = YuShuBook()
     yushu_book.search_by_isbn(isbn)
-    # gifting = Gift.query.filter_by(uid=current_user.id, isbn=isbn, status=1,
-    #                                launched=False).first()
-    # wishing = Wish.query.filter_by(uid=current_user.id, isbn=isbn, status=1,
-    #                                launched=False).first()
     if current_user.can_save_to_list(isbn):
         # 既不在赠送清单，也不在心愿清单才能添加
         with db.auto_commit():

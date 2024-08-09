@@ -1,5 +1,5 @@
 from app.libs.http import Http
-from app import cache
+# from app import cache
 
 
 class YuShuBook:
@@ -14,7 +14,7 @@ class YuShuBook:
         self.books = []
     # books里面是从接口查询过来的一个个字典，每个字典是一本书籍的信息
 
-    @cache.memoize(timeout=60)
+    # @cache.memoize(timeout=60)
     def search_by_isbn(self, isbn):
         url = self.isbn_url.format(isbn=isbn, appkey=self.app_key)
         result = Http.get(url)
