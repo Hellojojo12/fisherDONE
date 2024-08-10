@@ -1,6 +1,5 @@
 
-from flask import render_template, request, jsonify, session
-from datetime import timedelta
+from flask import render_template, request, jsonify
 from . import web
 from app.libs.error_message import BaseException, UnknownException
 
@@ -34,12 +33,3 @@ def internal_server_error(e):
         response.status_code = 500
         return response
     return render_template('500.html'), 500
-
-@web.before_request
-def make_session_permanent():
-    """
-        让session成为持久性session
-    """
-    pass
-    # session.permanent = True
-    # web.permanent_session_lifetime = timedelta(minutes=1)

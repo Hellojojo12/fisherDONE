@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+这段代码主要定义了一个基于 Flask 框架的自定义异常处理机制。
+代码包括一个自定义的 APIException 类和继承自它的 FormError类
+"""
 from flask import json
 from flask import request
 from flask import current_app
