@@ -7,7 +7,7 @@ from flask import json
 from flask import request
 from flask import current_app
 from werkzeug.exceptions import HTTPException
-from werkzeug._compat import text_type
+# from werkzeug._compat import text_type
 
 
 class APIException(HTTPException):
@@ -29,11 +29,11 @@ class APIException(HTTPException):
             headers_merged.update(self.headers)
             self.headers = headers_merged
 
-        super(APIException, self).__init__(error, response)
+        super().__init__(error, response)
 
     def get_body(self, environ=None):
 
-        return text_type(json.dumps(dict(
+        return str(json.dumps(dict(
             msg=self.error,
             code=self.error_code,
             request=request.method+'  '+self.get_url_no_param()

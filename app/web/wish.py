@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 from . import web
 from app.spider.yushu_book import YuShuBook
 from app.service.wish import WishService
-from app import limiter
+# from app import limiter
 
 from app.models import db
 from app.models.wish import Wish
@@ -48,7 +48,7 @@ def save_to_wish(isbn):
 
 @web.route('/satisfy/wish/<int:wid>')
 @login_required
-@limiter.limit(key_func=limit_key_prefix)
+# @limiter.limit(key_func=limit_key_prefix)
 def satisfy_wish(wid):
     """
         向想要这本书的人发送一封邮件
