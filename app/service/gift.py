@@ -25,5 +25,12 @@ class GiftService:
                    Wish.status == 1).group_by(Wish.isbn).all()
         return count_list
 
-
+    @staticmethod
+    # @cache.memoize(timeout=600)
+    def recent():
+        gift_list = Gift.query.filter_by(launched=False).order_by(
+            desc(Gift.create_time)).limit(
+            current_app.config['RECENT_BOOK_PER_PAGE']).all()
+        books = [BookViewModel(gift.book.first) for gift in gift_list]
+        return books
 
